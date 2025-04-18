@@ -22,7 +22,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: backend-artifact
-          path: /*
+          path: prueba-deploy
 
   deploy-backend:
     needs: build-and-test-backend
@@ -32,7 +32,6 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: backend-artifact
-          path: /*
       - name: Deploy to Azure App Service
         uses: azure/webapps-deploy@v3
         with:
