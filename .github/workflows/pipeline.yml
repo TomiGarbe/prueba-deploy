@@ -19,12 +19,16 @@ jobs:
           cd backend
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          # Este paso es opcional para verificar que requirements.txt sea válido
+      - name: Verify Artifact Structure
+        run: |
+          ls -R backend
       - name: Upload Backend Artifact
         uses: actions/upload-artifact@v4
         with:
           name: backend-artifact
-          path: backend/
+          path: |
+            backend/main.py
+            backend/requirements.txt
 
   deploy-backend:
     needs: build-and-test-backend
@@ -34,7 +38,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: backend-artifact
-          path: backend/
+          path: .
+      - name: Verify Deployed Files
+        run: |
+          ls -R .
       - name: Deploy to Azure App Service
         uses: azure/webapps-deploy@v3
         with:
