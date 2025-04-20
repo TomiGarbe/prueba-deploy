@@ -14,13 +14,12 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Create and activate virtual environment
+      - name: Verify Backend Dependencies
         run: |
           cd backend
-          python -m venv venv
-          . venv/bin/activate
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+          # Este paso es opcional para verificar que requirements.txt sea válido
       - name: Upload Backend Artifact
         uses: actions/upload-artifact@v4
         with:
